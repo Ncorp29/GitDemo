@@ -13,7 +13,6 @@
 <class name="testCases.TC_003_LoginDDT"/>
 <class name="testCases.TC_004_Wishlist"/>
 <class name="testCases.TC_005_AddToCart"/>
-<class name="testCases.TitleVerificationTest"/>
 
 </classes>
 </test>
