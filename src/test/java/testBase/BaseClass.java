@@ -30,34 +30,38 @@ public class BaseClass {
 	
 	
 	@BeforeClass
-	@Parameters({"os", "browser"})
-	public void setup(String os, String br) throws IOException
-	
-	{
-		//loading properties file
-		 FileReader file=new FileReader(".//src//test//resources//config.properties");
-		 p=new Properties();
-		 p.load(file);
-		
-		
-		//loading log4j file
-		logger=LogManager.getLogger(this.getClass());//Log4j
-		
-		//launching browser based on condition
-		switch(br.toLowerCase())
-		{
-		case "chrome": driver=new ChromeDriver(); break;
-		case "edge": driver=new EdgeDriver(); break;
-		default: System.out.println("No matching browser..");
-					return;
-		}
-		
-		driver.manage().deleteAllCookies();
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
-		
-		driver.get(p.getProperty("appURL"));
-		driver.manage().window().maximize();
-	}
+public void setup() throws IOException {
+    // Loading properties file
+    FileReader file = new FileReader(".//src//test//resources//config.properties");
+    p = new Properties();
+    p.load(file);
+
+    // Loading log4j file
+    logger = LogManager.getLogger(this.getClass());
+
+    // Fetching browser from system property or defaulting to Chrome
+    String browser = System.getProperty("Browser", "chrome").toLowerCase(); // Default to Chrome if not provided
+
+    // Launching browser based on condition
+    switch (browser) {
+        case "chrome":
+            driver = new ChromeDriver();
+            break;
+        case "edge":
+            driver = new EdgeDriver();
+            break;
+        default:
+            System.out.println("No matching browser. Defaulting to Chrome.");
+            driver = new ChromeDriver();
+    }
+
+    driver.manage().deleteAllCookies();
+    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+
+    driver.get(p.getProperty("appURL"));
+    driver.manage().window().maximize();
+}
+
 	
 	@AfterClass
 	public void tearDown()
