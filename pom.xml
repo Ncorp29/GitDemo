@@ -115,9 +115,7 @@
                 <suiteXmlFiles>
                     <suiteXmlFile>testng.xml</suiteXmlFile>
                 </suiteXmlFiles>
-               <systemPropertyVariables>
-        <Browser>${Browser}</Browser>
-    </systemPropertyVariables>
+               
             </configuration>
         </plugin>
     </plugins>
