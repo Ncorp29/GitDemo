@@ -30,9 +30,15 @@ public class PaymentPage {
     }
 
     public void fillCardDetails(String cardNumber, String expiryDate, String cvv) {
-        driver.findElement(cardNumberField).sendKeys(cardNumber);
-        driver.findElement(cardExpiryField).sendKeys(expiryDate);
-        driver.findElement(cardCVVField).sendKeys(cvv);
+        if (cardNumber != null && cardNumber.matches("^\\d{13,19}$") &&
+            expiryDate != null && expiryDate.matches("^(0[1-9]|1[0-2])/\\d{2,4}$") &&
+            cvv != null && cvv.matches("^\\d{3,4}$")) {
+            driver.findElement(cardNumberField).sendKeys(cardNumber);
+            driver.findElement(cardExpiryField).sendKeys(expiryDate);
+            driver.findElement(cardCVVField).sendKeys(cvv);
+        } else {
+            throw new IllegalArgumentException("Invalid payment details provided for test/sandbox use only.");
+        }
     }
 
     public void clickContinue() {
